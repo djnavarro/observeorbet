@@ -1,0 +1,49 @@
+model {
+	
+	# simple model: fixed thresholds
+    for (s in 1:N) { # over all subjects
+		threshold[s] ~ dgamma(thresh0_a,thresh0_b); 
+    }
+
+	# evidence
+	for( s in 1:N) {
+		evidence[s,1] <- 0 # initial evidence is zero
+		alpha[s] ~ dbeta(decayrateprior_a,decayrateprior_b); # the exponential decay rate parameter
+		
+		for(t in 2:50) { # over all trials
+			evidence[s,t] <- (1-alpha[s]) * (X[s,t-1] + evidence[s,t-1]); # evidence level on trial t
+		}
+	}
+	
+	# response
+	eps <- .01
+	for( s in 1:N) {
+		sigma[s] ~ dexp(respstoch); # what is the noisiness
+		for( t in 1:50) {
+			lowertail[s,t] <- phi((-threshold[s] - evidence[s,t])/sigma[s]) # mass below the lower threshold
+			uppertail[s,t] <- phi((-threshold[s] + evidence[s,t])/sigma[s]) # mass above the upper threshold
+			betprob[s,t] <- min(1-eps,max(eps, lowertail[s,t] + uppertail[s,t]))
+			
+			A[s,t] ~ dbern(betprob[s,t]) # action sampled from Bernoulli distribution
+		}
+	}
+
+
+	# --- researcher prior over the population distributions ---
+	
+	# group priors over decay rates
+	decayrateprior_atemp ~ dgamma(1,1);
+	decayrateprior_a <- 1+decayrateprior_atemp;
+	
+	decayrateprior_btemp ~ dgamma(1,1);
+	decayrateprior_b <- 1+decayrateprior_btemp;
+	
+	# group priors over response noise
+	respstoch ~ dgamma(1,1);
+	
+	# group priors over threshold locations
+	thresh0_a ~ dexp(1);
+	thresh0_b ~ dexp(1);
+	
+	
+}

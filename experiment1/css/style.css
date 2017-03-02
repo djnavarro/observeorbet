@@ -1,0 +1,87 @@
+/* this should be tidied: lots of redundancy due to chopping and changing */
+
+html,td {
+	font-size: 100%;
+	font-family: "Helvetica Neue", Helvetica, sans-serif; 
+	font-weight:200;
+	margin: 0;
+	padding: 0
+}
+
+ul,ol {
+	font-size: 100%;
+	font-family: "Helvetica Neue", Helvetica, sans-serif; 
+	font-weight:200;
+}
+
+
+body {
+	font-size: 100%;
+	padding: 0;
+	text-align:center;
+	color: black;
+}
+
+p { margin: .5em 0 }
+
+img { border: none }
+
+pre, code {
+	font-family: Menlo, Lucida Console, Monaco, monospace;
+	font-size: 90%;
+}
+
+pre {
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	background-color: #efefef;
+
+	overflow: auto;
+	width: 90%;
+	margin: 1em 1em;
+	padding: 5px 10px;
+	
+	/* fix overflow in IE */
+	min-height: 40px; 
+	height: auto !important; 
+	height: 40px; 
+}
+
+input, textarea, select {
+	padding: .2em;
+	border: 1px solid #999;
+	color: #222;
+	background-color: #eee;
+	font-family: "Helvetica Neue", Helvetica, sans-serif; 
+	font-weight:200;
+	font-size: 100%;
+}
+
+input:hover, input:focus, textarea:hover, textarea:focus {
+	border: 1px solid #AA1111;
+	background-color: #fff
+}
+
+textarea {
+	font-size: 100%;
+	font-family: "Helvetica Neue", Helvetica, sans-serif; 
+	font-weight:200;
+	width: 99%;
+	margin-top: .1em;
+	margin-bottom: 1em
+}
+
+a:link, a:visited {
+	color: #aa4142;
+	text-decoration: none
+}
+
+a:hover {
+	color: #c37676;
+	text-decoration: underline
+}
+
+table.center {
+  margin-left:auto; 
+  margin-right:auto;
+}
